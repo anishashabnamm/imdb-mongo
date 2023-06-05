@@ -3,6 +3,6 @@ const {searchMovies, uploadMovies, updateMovies, deleteMovies, getMovies, getMov
 const router = express.Router()
 
 router.route('/').get(searchMovies).post(uploadMovies)
-router.route(':/id').patch(updateMovies).delete(deleteMovies).get(getMovies, getMovieById)
+router.route('/:id').patch(getMovies, updateMovies).delete(getMovies, deleteMovies).get(getMovies, getMovieById)
 
 module.exports= router

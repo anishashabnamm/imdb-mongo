@@ -1,21 +1,25 @@
-const mongoose = require('mongoose')
-const movieSchema = mongoose.Schema({
-    title:{
-        type:String,
-        require:true, 
-    },
-    year:{
-        type:String,
-        require : true
-    },
-    gener:{
-        type:String,
-        require : true
-    },
-    DateOfUpload:{
-        type: Date,
-        require: Date.now()
-    }
-})
+const mongoose = require('mongoose');
 
-module.exports = mongoose.model(`moviesModel`, movieSchema)
+const movieSchema = mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+        unique: true // Enable uniqueness for the "title" field
+    },
+    year: {
+        type: String,
+        required: true
+    },
+    genre: {
+        type: String,
+        required: true
+    },
+    DateOfUpload: {
+        type: Date,
+        default: Date.now()
+    }
+});
+
+const moviesModel = mongoose.model('moviesModel', movieSchema);
+
+module.exports = moviesModel;

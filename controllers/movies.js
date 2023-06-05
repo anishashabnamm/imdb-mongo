@@ -36,19 +36,47 @@ const getMovieById =  async (request, response) =>
    
 }
 
-const updateMovies = (request, response) =>
+const updateMovies = async (request, response) =>
 {
-    response.send("This is the updated list of movies")
+    // response.send("This is the updated list of movies")
+    if(request.body.title!=null)
+    {
+        response.movie.title = request.body.title
+    }
+    if(request.body.year!=null)
+    {
+        response.movie.year = request.body.year
+    }
+    if(request.body.genre!=null)
+    {
+        response.movie.genre = request.body.genre
+    }
+
+    try
+    {
+        const updateMovies = await response.movie.save()
+        response.status(201).json(updateMovies)
+    }
+    catch(error)
+    {
+        response.status(400).json({message:error.message})
+    }
+ 
 }
 
-const deleteMovies = (request, response) =>
+const deleteMovies = async (request, response) =>
 {
     // response.send("Delete the movie")
-    // try(
-    //     {
-
-    //     }
-    // )
+    try{
+        {
+            await response.movie.deleteOne()
+            response.json({message: `Deleted ${response.movie.title}`})
+        }
+    }
+    catch(error)
+    {
+        response.status(500).json({message:error.message})
+    }
 }
 
 async function getMovies(request, response, next){
